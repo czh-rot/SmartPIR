@@ -7,7 +7,7 @@ SmartPIR is an efficient Index PIR (Private Information Retrieval) system design
 ### Features
 
 - **Protocol**: A sophisticated PIR protocol capable of handling variable-length entries efficiently, ensuring minimal overhead and maximum performance for data retrieval.
-- **Architecture**: Utilizes SmartSSDs (Smart Solid-State Drives) to enhance both computational and I/O performance. The architecture optimizes data flow between the CPU and SmartSSD, significantly reducing latency and improving throughput.
+- **Architecture**: Utilizes SAMSUNG SmartSSDs to enhance both computational and I/O performance. The architecture optimizes data flow between the CPU and SmartSSD, significantly reducing latency and improving throughput.
 
 ------
 
@@ -21,7 +21,7 @@ The repository is organized into two primary directories:
 ```
 
 - **/host/**: Contains the code responsible for coordinating tasks between the CPU and SmartSSD, including system-level orchestration.
-- **/kernel/**: Implements the BFV (Brakerski-Fan-Vaikuntanathan) cryptographic kernel on FPGA using High-Level Synthesis (HLS) to accelerate encryption and decryption operations.
+- **/kernel/**: Implements the BFV (Brakerski-Fan-Vaikuntanathan) cryptographic kernel on FPGA using High-Level Synthesis (HLS) to accelerate Homomorphic operations.
 
 ------
 
