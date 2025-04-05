@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # SmartPIR
 
 SmartPIR is an efficient Index PIR (Private Information Retrieval) system designed through protocol and architecture co-design. By optimizing both the PIR protocol and hardware architecture, SmartPIR delivers high-performance and privacy-preserving solutions for large-scale data retrieval.
