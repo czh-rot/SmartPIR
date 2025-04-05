@@ -1,44 +1,84 @@
 # SmartPIR
 
-SmartPIR is an efficient Index PIR (Private Information Retrieval) system designed through protocol and architecture co-design. By optimizing both the PIR protocol and hardware architecture, SmartPIR delivers high-performance and privacy-preserving solutions for large-scale data retrieval.
+SmartPIR is an efficient Index PIR (Private Information Retrieval) system developed via a protocol and hardware co-design approach. The project now includes three main implementations:  
+1. **CPU-based SmartPIR** (relying on the Microsoft SEAL library)  
+2. **GPU-based SmartPIR** (template for GPU acceleration, to be updated)  
+3. **CSD-based SmartPIR** (leveraging Samsung SmartSSD and Xilinx FPGA for acceleration)
 
-------
+---
 
-### Features
+## Features
 
-- **Protocol**: A sophisticated PIR protocol capable of handling variable-length entries efficiently, ensuring minimal overhead and maximum performance for data retrieval.
-- **Architecture**: Utilizes SAMSUNG SmartSSDs to enhance both computational and I/O performance. The architecture optimizes data flow between the CPU and SmartSSD, significantly reducing latency and improving throughput.
+- **Flexible PIR Protocol**  
+  - Efficiently handles variable-length entries, maintaining high performance for large-scale datasets.  
+  - Implements a sophisticated BFV (Brakerski-Fan-Vaikuntanathan) homomorphic encryption scheme for secure data retrieval.
 
-------
+- **CPU-based Implementation**  
+  - Utilizes [Microsoft SEAL](https://github.com/microsoft/SEAL) for homomorphic operations.  
+  - Built with standard C++ tools (CMake, etc.) for easy development and deployment on typical CPU-based environments.
 
-### Code Organization
+- **GPU-based Implementation** (Template)  
+  - (Planned) Accelerates PIR using GPU resources.  
+  - Will use specialized libraries and frameworks to offload homomorphic operations onto GPUs.  
+  - To be updated in future releases.
 
-The repository is organized into two primary directories:
+- **CSD-based Implementation**  
+  - Employs a Samsung SmartSSD (with an onboard Xilinx FPGA) to execute homomorphic encryption kernels near the storage.  
+  - Reduces data movement by offloading significant computation onto the FPGA, enabling higher throughput and lower latency.
 
-```
-/host/          CPU+SmartSSD Coordination
-/kernel/        BFV kernel implemented in FPGA HLS code
-```
+---
 
-- **/host/**: Contains the code responsible for coordinating tasks between the CPU and SmartSSD, including system-level orchestration.
-- **/kernel/**: Implements the BFV (Brakerski-Fan-Vaikuntanathan) cryptographic kernel on FPGA using High-Level Synthesis (HLS) to accelerate Homomorphic operations.
+## Repository Structure
 
-------
+This repository is organized into the following high-level folders (plus supporting documentation):
 
-### Build Instructions
+1. **CPU-based SmartPIR/**  
+   - Contains source code for the CPU-only PIR solution, relying on Microsoft SEAL.
 
-Before running any tests, you need to construct a 3-D matrix and store it on the SmartSSD. This process ensures that the data is properly prepared for the PIR protocol.
+2. **GPU-based SmartPIR/** (Template)  
+   - Intended for a future GPU-accelerated PIR implementation.  
+   - Currently a placeholder for code structure and build scripts (to be added).
 
-After that, you can build and run the system with the following command:
+3. **CSD-based SmartPIR/**  
+   - Host-side code (CPU) and FPGA kernel code for SmartSSD-based BFV acceleration.  
+   - Includes High-Level Synthesis (HLS) code (`kernel/`) and host orchestration code (`host/`).
 
-```
-make run TARGET=hw PLATFORM=xilinx_u2_gen3x4_xdma_gc_2_202110_1
-```
+4. **README** (this file)  
+   - Provides an overview of SmartPIR, features, directory organization, and build instructions.
 
-This command compiles and executes the program targeting the specified hardware platform (`xilinx_u2_gen3x4_xdma_gc_2_202110_1`), which is an FPGA-based setup for high-performance computation.
+---
 
-------
+## Build & Run Instructions
 
-### License
+The instructions below outline how to build and run each of the three implementations.
 
-This project is licensed under the MIT License.
+### 1. CPU-based SmartPIR
+
+This version uses [Microsoft SEAL](https://github.com/microsoft/SEAL) for homomorphic operations.
+
+1. **Prerequisites**  
+   - A C++17 (or later) compiler.  
+   - CMake (3.10+ recommended).  
+   - The Microsoft SEAL library (you can build it from source or install via package managers).  
+
+2. **Build and Install**  
+   1. Navigate to the `CPU-based SmartPIR/` directory:
+      ```bash
+      cd CPU-based\ SmartPIR
+      ```
+   2. Build and install the project:
+      ```bash
+      cmake -S . -B build
+      cmake --build build
+      sudo cmake --install build
+      ```
+      > Note: You may specify a custom install prefix by adding `-DCMAKE_INSTALL_PREFIX=<path>` during the initial CMake configuration.
+
+3. **Run Examples**  
+   After installation, you can run sample programs (such as `sealexamples`):
+   ```bash
+   cd ./native/examples
+   cmake -S . -B build
+   cmake --build build
+   cd build/bin
+   ./sealexamples 1
