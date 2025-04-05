@@ -211,4 +211,3 @@ This version targets a Samsung SmartSSD (with a Xilinx FPGA) to run the BFV kern
 ## License
 
 SmartPIR is licensed under the [MIT License](./LICENSE). You are free to use, modify, and distribute this project. For academic use, please cite the original SmartPIR publication or mention this repository.
->>>>>>> cd4fcd7ec03807baf29b38fa1bad0309733ec26c
